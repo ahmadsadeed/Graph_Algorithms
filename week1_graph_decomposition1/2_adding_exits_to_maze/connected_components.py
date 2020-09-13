@@ -5,8 +5,21 @@ import sys
 
 def number_of_components(adj):
     result = 0
-    #write your code here
+    visited = [False for x in range(len(adj))]
+
+    def explore(x):
+        visited[x] = True
+        for w in adj[x]:
+            if visited[w] is False:
+                explore(w)
+
+    for i in range(len(adj)):
+        if visited[i] is False:
+            result += 1
+            explore(i)
+
     return result
+
 
 if __name__ == '__main__':
     input = sys.stdin.read()

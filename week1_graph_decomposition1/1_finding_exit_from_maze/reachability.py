@@ -2,9 +2,19 @@
 
 import sys
 
+
 def reach(adj, x, y):
-    #write your code here
-    return 0
+    visited = [False for _ in range(len(adj))]
+
+    def explore(x):
+        visited[x] = True
+        for i in adj[x]:
+            if visited[i] is False:
+                explore(i)
+        return 1 if visited[y] is True else 0
+
+    return explore(x)
+
 
 if __name__ == '__main__':
     input = sys.stdin.read()
@@ -19,3 +29,23 @@ if __name__ == '__main__':
         adj[a - 1].append(b - 1)
         adj[b - 1].append(a - 1)
     print(reach(adj, x, y))
+
+'''
+Input:
+4 4
+1 2
+3 2
+4 3
+1 4
+1 4
+
+4 4 1 2 3 2 4 3 1 4 1 4
+
+Input:
+4 2
+1 2
+3 2
+1 4
+
+4 2 1 2 3 2 1 4
+'''
